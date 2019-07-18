@@ -1,1 +1,2 @@
-urllib.demo1：urlopen函数
+urllib.demo1：urlopen函数，urlretrieve函数，ulencode和parse_qs函数
+urllib.demo2：
