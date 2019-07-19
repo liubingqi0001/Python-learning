@@ -1,3 +1,5 @@
 urllib.demo1.py：urlopen函数，urlretrieve函数，ulencode和parse_qs函数
 urllib.demo2.py：urlparse和urlsplit函数的用法
 urllib.demo3.py：实战-用Request爬取网易云音乐
+urllib.demo4.py：使用ProxyHandler进行IP代理
+urllib.homework.py：作业，访问糗百
