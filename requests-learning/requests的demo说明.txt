@@ -1,0 +1,4 @@
+requests.demo1.py：requests的get请求
+requests.demo2.py：requests的post请求
+requests.demo3.py：requests的ip代理
+requests.demo4.py：requests获取cookie，以及通过session共享cookie
