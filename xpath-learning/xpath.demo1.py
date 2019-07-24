@@ -85,9 +85,24 @@ text = """
 """
 
 #以下是解析代码
-htmlElement = etree.HTML(text)
-# print(type(html))
-print(etree.tostring(htmlElement,encoding='utf-8').decode('utf-8'))
+# htmlElement = etree.HTML(text)
+# # print(type(html))
+# print(etree.tostring(htmlElement,encoding='utf-8').decode('utf-8'))
 
+#以下是解析文件
+def parse_text():
+    htmlElement = etree.HTML(text)
+    print(etree.tostring(htmlElement,encoding='utf-8').decode('utf-8'))
 
+def parse_tencent_file():
+    htmlElement = etree.parse("tencent.html")
+    print(etree.tostring(htmlElement,encoding='utf-8').decode('utf-8'))
+
+def parse_lagou_file():
+    parser = etree.HTMLParser(encoding='utf-8')
+    htmlElement = etree.parse("lagou.html",parser=parser)
+    print(etree.tostring(htmlElement,encoding='utf-8').decode('utf-8'))
+
+if __name__== '__main__':
+    parse_lagou_file()
 
