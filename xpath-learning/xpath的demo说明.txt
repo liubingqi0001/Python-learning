@@ -1,1 +1,3 @@
 xpath.demo1.py：lxml解析html代码
+xpath.demo2.py：lxml和xpath结合使用示例
+xpath语法笔记.txt：官方课件做的笔记
