@@ -38,11 +38,65 @@ def get_detail_urls(url):
     #     print(BASE_DOMAIN + detail_url)
 
 def parse_detail_page(url):
-    pass
+    movie = {}
+    response = requests.get(url,headers=HEADERS)
+    text = response.content.decode('gbk')
+    html = etree.HTML(text)
+    title = html.xpath("//div[@class='title_all']//font[@color='#07519a']/text()")[0]
+    # print(title)
+    # for x in title:
+    #     print(etree.tostring(x,encoding='utf-8').decode('utf-8'))
+    movie['title']=title
+
+    zoomE = html.xpath("//div[@id='Zoom']")[0]
+    imgs = zoomE.xpath(".//img/@src")
+    cover = imgs[0]
+    screenshot = imgs[1]
+    movie['cover']=cover
+    movie['screenshot']=screenshot
+
+    def parse_info(info,rule):
+        return info.replace(rule,"").strip()
+
+    infos = zoomE.xpath(".//text()")
+    # print(infos)
+    for index,info in enumerate(infos):
+        # print(info)
+        # print(index)
+        # print('-'*30)
+        if info.startswith("◎年　　代"):
+            # info = info.replace("◎年　　代","").strip()
+            # print(info)
+            info = parse_info(info,"◎年　　代")
+            movie['year']=info
+        elif info.startswith("◎产　　地"):
+            # info = info.replace("◎产　　地","").strip()
+            info = parse_info(info, "◎产　　地")
+            movie['country']=info
+        elif info.startswith("◎类　　别"):
+            info = parse_info(info, "◎类　　别")
+            movie['catagory']=info
+        elif info.startswith("◎豆瓣评分"):
+            info = parse_info(info, "◎豆瓣评分")
+            movie['douban_rating'] = info
+        elif info.startswith("◎片　　长"):
+            info = parse_info(info, "◎片　　长")
+            movie['duration'] = info
+        elif info.startswith("◎导　　演"):
+            info = parse_info(info, "◎导　　演")
+            movie['director'] = info
+        elif info.startswith("◎主　　演"):
+            info = parse_info(info, "◎主　　演")
+            for x in range(index+1,100):
+                pass
+
+
+
 
 def spider():
     base_url = 'https://dytt8.net/html/gndy/dyzz/list_23_{}.html'
     for x in range(1,8):
+        # 第一个for循环用来控制总共有7页
         print('x'*30)
         print(x)
         print('x'*30)
@@ -50,7 +104,9 @@ def spider():
         # print(url)
         detail_urls = get_detail_urls(url)
         for detail_url in detail_urls:
-            print(detail_url)
+            #第二个for循环用来遍历一页中所有电影的详情url
+            movie = parse_detail_page(detail_url)
+            break
 
 if __name__ == '__main__':
     spider()
